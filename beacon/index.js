@@ -17,6 +17,8 @@ module.exports = async function (context, req) {
         }
     } catch (error) {
         exceptionRecords.push({name:error.name,message:error.message,stack:error.stack});
+        context.log('Beacon catched an Exception');
+        context.log.error(error);
         responseMessage = {status: 500, body:`Logged event: AF-${context.bindingData.sys.methodName} "${context.executionContext.invocationId}"`}
     }
 
