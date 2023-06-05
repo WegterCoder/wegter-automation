@@ -9,6 +9,12 @@
         "get",
         "post"
       ]
+    },{
+      "tableName": "Events",
+      "connection": "AzureWebJobsStorage",
+      "name": "event",
+      "type": "table",
+      "direction": "out"
     },
     {
       "type": "http",
