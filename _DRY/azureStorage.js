@@ -1,7 +1,16 @@
 const {TableClient, TableServiceClient} = require("@azure/data-tables");
 const {BlobClient, BlobServiceClient}   = require("@azure/storage-blob");
 
-
+/* Example
+const createdItem = await createItem(process.env.AzureWebJobsStorage,{
+                    type:'blob',
+                    blob:{
+                        containerName:'process-data',
+                        blobName:'newBlob',
+                        blobData:'downloadedblobData'
+                    }
+});
+*/
 async function createItem (AzureWebJobsStorage, itemDetails){
     let functionResponse = {status:'sucess', value:null};
     try {
