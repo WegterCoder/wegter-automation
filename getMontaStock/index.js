@@ -6,7 +6,7 @@ module.exports = async function (context, req) {
     let httpResponse = {status: 401, body:"You are not authorized"};
     let exceptionRecords = [];
     
-    // if (context.bindingData.matchingCode == process.env.CE_SECRET){
+    if (context.bindingData.matchingCode == process.env.CE_SECRET){
         try {
             const item = await readItem(process.env.AzureWebJobsStorage,{
                 type:'blob',
@@ -20,7 +20,7 @@ module.exports = async function (context, req) {
                 httpResponse = {
                     status: 202,
                     body: item.value,
-                    headers : {"Content-Disposition" : ContentDisposition}
+                    headers : {"Content-Disposition" : ContentDisposition, "Content-Type":"text/csv"}
                  };
             }
         
@@ -33,7 +33,7 @@ module.exports = async function (context, req) {
             }
             context.log(LogStyle.fg.red,error);
         }        
-    // }
+    }
 
     // http out binding
     context.res = httpResponse
