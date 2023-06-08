@@ -45,8 +45,17 @@ async function createItem (AzureWebJobsStorage, itemDetails){
     return functionResponse
 }
 
+/* Example
+const readItem = await createItem(process.env.AzureWebJobsStorage,{
+                    type:'blob',
+                    blob:{
+                        containerName:'process-data',
+                        blobName:'someBlobName'
+                    }
+});
+*/
 async function readItem (AzureWebJobsStorage, itemDetails){
-    let functionResponse = {status:'sucess', value:null};
+    let functionResponse = {status:'success', value:null};
     try {
         switch (itemDetails.type) {
             case 'blob':
@@ -73,17 +82,18 @@ async function readItem (AzureWebJobsStorage, itemDetails){
                 const downloadBlockBlobResponse = await blobClient.download();
                 functionResponse.value = (
                     await streamToBuffer(downloadBlockBlobResponse.readableStreamBody)
-                ).toString();
+                )
                 break;
         
             default:
                 break;
         }
     } catch (error) {
-        functionResponse.status = 'fail';
-        functionResponse.errorMessage = error.toString();
-        functionResponse.errorStack = error.stack
-        functionResponse.value = itemDetails;        
+        throw error;
+        functionResponse.status         = 'Failed to read Item';
+        functionResponse.errorMessage   = error.toString();
+        functionResponse.errorStack     = error.stack
+        functionResponse.value          = itemDetails;
     }
     return functionResponse
 }

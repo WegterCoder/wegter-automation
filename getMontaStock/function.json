@@ -1,0 +1,26 @@
+{
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "route": "getMontaStock/{matchingCode}",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "tableName": "Events",
+      "connection": "AzureWebJobsStorage",
+      "name": "event",
+      "type": "table",
+      "direction": "out"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    }
+  ]
+}
