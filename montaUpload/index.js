@@ -54,7 +54,7 @@ module.exports = async function (context, req) {
             type:'blob',
             blob:{
                 containerName: 'public',
-                blobName: 'WegterMontaStock.csv',
+                blobName: 'ce/WegterMontaStock.csv',
                 blobData: 'fileStream'
             }    
         });
